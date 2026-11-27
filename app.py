@@ -11,7 +11,7 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model():
-    model_path = Path(__file__).parent / "promptlens_model.joblib"
+    model_path = Path(__file__).parent / "promptlens_v2_filtered.joblib"
     return joblib.load(model_path)
 
 model = load_model()
@@ -52,16 +52,18 @@ if st.button("Analyze Prompt", type="primary"):
 
 st.divider()
 
-st.markdown("### Model Performance")
+st.markdown("### V2 Validation Performance")
+
 col1, col2, col3 = st.columns(3)
 
-col1.metric("Test Accuracy", "95.12%")
-col2.metric("Malicious Recall", "97.64%")
-col3.metric("Malicious F1", "95.91%")
-
+col1.metric("Validation F1", "95.70%")
+col2.metric("Malicious Recall", "95.88%")
+col3.metric("False Positive Rate", "5.90%")
 st.info(
-    "Research prototype only. The classifier was evaluated "
-    "on its source dataset and is not a standalone security control."
+    "PromptLens v2 is an experimental research prototype. "
+    "Its reported performance comes from validation data. "
+    "False positives and missed attacks remain possible. "
+    "It is not suitable as a standalone security control."
 )
 
-st.caption("PromptLens v1.0 | TF-IDF + LinearSVC")
+st.caption("PromptLens v2.0 (Experimental) | TF-IDF + LinearSVC")
